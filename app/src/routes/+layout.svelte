@@ -7,7 +7,7 @@
 <div class="app">
 	<Header />
 
-	<main class='bg-amber-200'>
+	<main>
 		<slot />
 	</main>
 

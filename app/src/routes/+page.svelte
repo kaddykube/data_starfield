@@ -1,5 +1,5 @@
 <script>
-	import Stars from './Stars.svelte';
+	import Starfield from './Starfield.svelte';
 </script>
 
 <svelte:head>
@@ -8,7 +8,7 @@
 </svelte:head>
 
 <section>
-	<Stars />
+	<Starfield />
 </section>
 
 <style>
