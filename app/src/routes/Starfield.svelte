@@ -15,6 +15,10 @@
 		isDraw = !isDraw;
 	}
 
+	function handleStarName(event: { detail: { text: string; }; }) {
+		console.log(event.detail.text);
+	}
+
 	$: if (count >= 11) {
 		count = 0;
 	}
@@ -35,6 +39,8 @@
 		top: isDraw ? Math.floor(Math.random() * 80) + '%' : '',
 		left: isDraw ? Math.floor(Math.random() * 70) + '%' : ''
 	};
+
+	$: stars = [coord1, coord2, coord3, coord4];
 </script>
 
 <div class="starfield">
@@ -42,28 +48,31 @@
 	<button on:click={drawDot}>{isDraw ? 'clean' : 'draw'} Starfield</button>
 
 	{#if isDraw}
-		<Star isActive={isDraw} {...coord1}></Star>
-		<svg width="100%" height="100%">
-			<line x1={coord1.left} y1={coord1.top} x2={coord2.left} y2={coord2.top} stroke="white" />
-		</svg>
-		<Star isActive={isDraw} {...coord2}></Star>
-		<svg width="100%" height="100%">
-			<line x1={coord2.left} y1={coord2.top} x2={coord3.left} y2={coord3.top} stroke="white" />
-		</svg>
-		<Star isActive={isDraw} {...coord3}></Star>
-		<svg width="100%" height="100%">
-			<line x1={coord3.left} y1={coord3.top} x2={coord4.left} y2={coord4.top} stroke="white" />
-		</svg>
-		<Star isActive={isDraw} {...coord4}></Star>
+		{#each stars as star, i}
+			{#if i < stars.length - 1}
+				<Star  isActive={isDraw} {...star}></Star>
+				<svg width="100%" height="100%">
+					<line
+						x1={star.left}
+						y1={star.top}
+						x2={stars[i + 1].left}
+						y2={stars[i + 1].top}
+						stroke="white"
+					/>
+				</svg>
+			{:else}
+				<Star isActive={isDraw} {...star}></Star>
+			{/if}
+		{/each}
 	{/if}
 	{#if count < 10}
-	<Blackhole isActive={!isDraw}></Blackhole>
+		<Blackhole isActive={!isDraw}></Blackhole>
 	{:else}
-	<Explotion isActive={!isDraw}></Explotion>
+		<Explotion isActive={!isDraw}></Explotion>
 	{/if}
 </div>
 
-<style lang="postcss">
+<style lang="text/css">
 	.starfield {
 		width: 800px;
 		height: 600px;

@@ -12,5 +12,3 @@
 	</nav>
 </header>
 
-<style>
-</style>

@@ -1,13 +1,17 @@
 <script lang="ts">
+
+import { createEventDispatcher } from 'svelte';
 	export let isActive: boolean = true;
     export let top: string;
     export let left: string;
+
 	$: star = isActive ? 'star' : '';
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class={star} style="--left:{left}; --top:{top}"></div>
 
-<style lang="postcss">
+<style lang="text/css">
 	:root {
 		--left: 45%;
 		--top: 49%;
