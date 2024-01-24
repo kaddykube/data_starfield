@@ -7,7 +7,7 @@
 	export let left: string;
 
 	$: star = isActive ? 'star' : '';
-
+let starNode;
 
 	const toColor = tweened([255, 255, 255], {
 		duration: 1000,
@@ -24,6 +24,7 @@
 </script>
 
 <div
+bind:this={starNode}
 	class={star}
 	id={name}
 	style="--left:{left}; --top:{top}; {'background-color:rgb(' + $toColor.join(',') + ')'}"
