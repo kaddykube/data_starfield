@@ -9,7 +9,6 @@
 	<main class="bg-black">
 		<slot />
 	</main>
-
 	<Footer />
 </div>
 
