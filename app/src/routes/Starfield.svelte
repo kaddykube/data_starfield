@@ -1,56 +1,71 @@
 <script lang="ts">
 	import Blackhole from './Blackhole.svelte';
 	import Explotion from './Explotion.svelte';
+	import Spaceship from './Spaceship.svelte';
 	import Star from './Star.svelte';
-	let dot = '';
-	let count = 0;
+	import { starCount } from './starStore.js';
+	let m = { x: 0, y: 0 };
 	let isDraw = false;
+	let showShip = false;
+	$: isDrawAgain = false;
+
 	function drawDot() {
-		{
-			isDraw ? (dot = '') : (dot = '.');
+		if (isDraw) {
+			starCount.update((n) => n + 1);
 		}
-		if (!isDraw) {
-			count += 1;
-		}
-		isDraw = !isDraw;
+		isDrawAgain = !isDrawAgain;
+		isDraw = true;
 	}
 
-	function handleStarName(event: { detail: { text: string; }; }) {
-		console.log(event.detail.text);
+	function disableStars() {
+		if (isDraw) {
+			isDraw = !isDraw;
+		}
 	}
 
-	$: if (count >= 11) {
-		count = 0;
+	function showSpaceship(){
+		showShip = !showShip;
+	}
+
+	$: if ($starCount >= 4) {
+		starCount.set(0);
 	}
 
 	$: coord1 = {
-		top: isDraw ? Math.floor(Math.random() * 90) + '%' : '',
-		left: isDraw ? Math.floor(Math.random() * 80) + '%' : ''
+		name: 'cy1',
+		top: isDrawAgain ? Math.floor(Math.random() * 90) + '%' : Math.floor(Math.random() * 40) + '%',
+		left: isDrawAgain ? Math.floor(Math.random() * 80) + '%' : Math.floor(Math.random() * 90) + '%'
 	};
 	$: coord2 = {
-		top: isDraw ? Math.floor(Math.random() * 90) + '%' : '',
-		left: isDraw ? Math.floor(Math.random() * 80) + '%' : ''
+		name: 'cy2',
+		top: isDrawAgain ? Math.floor(Math.random() * 90) + '%' : Math.floor(Math.random() * 20) + '%',
+		left: isDrawAgain ? Math.floor(Math.random() * 80) + '%' : Math.floor(Math.random() * 90) + '%'
 	};
 	$: coord3 = {
-		top: isDraw ? Math.floor(Math.random() * 50) + '%' : '',
-		left: isDraw ? Math.floor(Math.random() * 60) + '%' : ''
+		name: 'vio3',
+		top: isDrawAgain ? Math.floor(Math.random() * 50) + '%' : Math.floor(Math.random() * 30) + '%',
+		left: isDrawAgain ? Math.floor(Math.random() * 60) + '%' : Math.floor(Math.random() * 90) + '%'
 	};
 	$: coord4 = {
-		top: isDraw ? Math.floor(Math.random() * 80) + '%' : '',
-		left: isDraw ? Math.floor(Math.random() * 70) + '%' : ''
+		name: 'orto7',
+		top: isDrawAgain ? Math.floor(Math.random() * 80) + '%' : Math.floor(Math.random() * 30) + '%',
+		left: isDrawAgain ? Math.floor(Math.random() * 70) + '%' : Math.floor(Math.random() * 90) + '%'
 	};
 
 	$: stars = [coord1, coord2, coord3, coord4];
 </script>
 
 <div class="starfield">
-	<span>{count}</span>
-	<button on:click={drawDot}>{isDraw ? 'clean' : 'draw'} Starfield</button>
+	<span>{$starCount}</span>
+	<button on:click={drawDot}>Starfield</button>
+	<button on:click={disableStars}>clean</button>
+	<button on:click={showSpaceship}>Spaceship</button>
 
+	{#key $starCount}
 	{#if isDraw}
 		{#each stars as star, i}
 			{#if i < stars.length - 1}
-				<Star  isActive={isDraw} {...star}></Star>
+				<Star isActive={isDraw} {...star}></Star>
 				<svg width="100%" height="100%">
 					<line
 						x1={star.left}
@@ -64,12 +79,17 @@
 				<Star isActive={isDraw} {...star}></Star>
 			{/if}
 		{/each}
-	{/if}
-	{#if count < 10}
+		{/if}
+	{/key}
+	{#if $starCount < 4}
 		<Blackhole isActive={!isDraw}></Blackhole>
 	{:else}
 		<Explotion isActive={!isDraw}></Explotion>
 	{/if}
+	{#if showShip}
+	<Spaceship></Spaceship>
+	{/if}
+
 </div>
 
 <style lang="text/css">
