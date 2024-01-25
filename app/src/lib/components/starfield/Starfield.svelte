@@ -4,7 +4,6 @@
 	import Spaceship from './Spaceship.svelte';
 	import Star from './Star.svelte';
 	import { starCount } from './starStore.js';
-	let m = { x: 0, y: 0 };
 	let isDraw = false;
 	let showShip = false;
 	$: isDrawAgain = false;
@@ -27,7 +26,7 @@
 		showShip = !showShip;
 	}
 
-	$: if ($starCount >= 4) {
+	$: if ($starCount > 4) {
 		starCount.set(0);
 	}
 
@@ -84,7 +83,7 @@
 	{#if $starCount < 4}
 		<Blackhole isActive={!isDraw}></Blackhole>
 	{:else}
-		<Explotion isActive={!isDraw}></Explotion>
+		<Explotion isActive={isDraw}></Explotion>
 	{/if}
 	{#if showShip}
 	<Spaceship></Spaceship>

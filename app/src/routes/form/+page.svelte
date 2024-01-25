@@ -1,15 +1,16 @@
 <script>
-	import Starfield from "$lib/components/starfield/Starfield.svelte";
+	import Konfigurator from "$lib/components/forms/Konfigurator.svelte";
+
 
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>Form</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
 <section>
-	<Starfield />
+	<Konfigurator/>
 </section>
 
 <style>

@@ -5,11 +5,9 @@
 @layer base {
 body{ background-color: rgb(239, 239, 239);}
 main {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
     min-height: 80vh;
+    position: relative;
+    top: 50px
 }
+
 }
