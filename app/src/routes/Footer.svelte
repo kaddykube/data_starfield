@@ -3,7 +3,7 @@
 </script>
 
 <footer>
-	<nav>
+	<nav class="ml-10 mt-10">
 		<div aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
 			<a href="/about">About</a>
 		</div>

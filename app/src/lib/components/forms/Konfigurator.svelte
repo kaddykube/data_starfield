@@ -1,10 +1,8 @@
 <script>
-    import Flavour from './Flavour.svelte';
 	import Address from './AddressBlock.svelte';
 
 	const options = [
 		{ object: 'address', component: Address },
-		{ object: 'flavour', component: Flavour },
 	];
 
 	let selected = options[0];

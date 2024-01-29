@@ -98,6 +98,8 @@
 		color: white;
 		background-color: black;
 		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
 		overflow: hidden;
 	}
 	svg {
