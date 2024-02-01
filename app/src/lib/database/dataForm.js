@@ -1,16 +1,16 @@
-const db = new Map();
+const users = new Map();
 
 /**
  * @param {any} userid
  */
 export function getUser(userid) {
-	if (!db.get(userid)) {
-		db.set(userid, [{
+	if (!users.get(userid)) {
+		users.set(userid, [{
 			id: crypto.randomUUID(),
 		}]);
 	}
 
-	return db.get(userid);
+	return users.get(userid);
 }
 
 /**
@@ -19,7 +19,7 @@ export function getUser(userid) {
  * @param {any} email
  */
 export function createUser(userid, name, email) {
-	const posts = db.get(userid);
+	const posts = users.get(userid);
 
 	posts.push({
 		id: crypto.randomUUID(),
@@ -33,7 +33,7 @@ export function createUser(userid, name, email) {
  * @param {any} id
  */
 export function deleteUser(userid, id) {
-	const posts = db.get(userid);
+	const posts = users.get(userid);
 	const index = posts.findIndex((/** @type {{ id: any; }} */ post) => post.id === id);
 
 	if (index !== -1) {
